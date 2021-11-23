@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 export interface GeoL{
   altitude?: null;
@@ -17,7 +17,8 @@ export interface GeoL{
 export class HomePage implements OnInit {
   currentLoc:GeoL = null;
   currLocHis:GeoL[] = [];
-  constructor() { }
+  wait:any;
+  constructor(private ngZone:NgZone) { }
 
   ngOnInit() {
     this.getCurrentLocation();
@@ -31,8 +32,18 @@ export class HomePage implements OnInit {
       this.currLocHis.unshift(this.currentLoc)
     });
   }
-
+  async watchPos(){
+  this.wait = await Geolocation.watchPosition({},(res,err)=>{
+      console.log(res);
+      this.ngZone.run(()=>{
+        this.currentLoc = {latitude:res.coords.latitude,longitude:res.coords.longitude,timestamp:new Date(res.timestamp)}
+        console.log("current location",this.currentLoc);
+        this.currLocHis.unshift(this.currentLoc);
+      })
+    })
+  }
   clearHistory(){
     this.currLocHis = [];
+    Geolocation.clearWatch({id:this.wait});
   }
 }
