@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ionic Pwa</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngIf="currentLoc">
+    <ion-card-header>
+      <ion-card-subtitle>Time: {{currentLoc?.timestamp|date:"medium"}}</ion-card-subtitle>
+      <ion-card-title>Your Current Location</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Latitude:{{currentLoc?.latitude}} <br>
+      Longitude:{{currentLoc?.longitude}}
+    </ion-card-content>
+  </ion-card>
+  <ion-buttons>
+    <ion-button expand="block" size="sm" fill="solid" color="primary" (click)="getCurrentLocation()">
+      <ion-icon name="refresh-outline" class="ion-margin-end"></ion-icon>  Reload Location
+    </ion-button>
+    <ion-button expand="block" size="sm" fill="solid" color="danger" (click)="clearHistory()">
+      <ion-icon name="trash-outline" class="ion-margin-end"></ion-icon>  Clear History
+    </ion-button>
+  </ion-buttons>
+
+  <ion-list>
+    <ion-list-header>
+      History your travel
+    </ion-list-header>
+    <ion-item *ngFor="let curr of currLocHis">
+      <ion-label>
+        <h5>Lat:{{curr.latitude}} & log:{{curr.longitude}}</h5>
+        <p>time:{{curr.timestamp|date:"medium"}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
