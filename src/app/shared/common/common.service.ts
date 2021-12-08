@@ -20,6 +20,12 @@ export class CommonService {
   a2hs = new BehaviorSubject<A2HS|null>(null);
   a2hs$ = this.a2hs.asObservable();
   constructor( public toastController: ToastController,private updates: SwUpdate) {
+    this.updates.checkForUpdate().then(res=>{
+      console.log("check for update result",res);
+    })
+    this.updates.activateUpdate().then(res=>{
+      console.log("activated update",res);
+    })
     this.updates.available.subscribe(event => {
       console.log('current version is', event.current);
       console.log('available version is', event.available);

@@ -31,19 +31,27 @@ export class HomePage implements OnInit {
   }
   ionViewWillEnter(){
 
-    this.common.a2hs$.subscribe((res)=>{
-      console.log("a2hs in home page",res);
-      this.a2hsRes = res;
-      if(res){
-        this.showBtn = res.showButton;
-        this.pmt = res.promt;
-        this.a2hsRes = res;
-      }
-    })
-    // if (!this.platform.is('pwa')) {
-    //   this.common.addToHomeScreen(this.a2hsRes);
-    // }
-  }
+    // this.common.a2hs$.subscribe((res)=>{
+    //   console.log("a2hs in home page",res);
+    //   this.a2hsRes = res;
+    //   if(res){
+    //     this.showBtn = res.showButton;
+    //     this.pmt = res.promt;
+    //     this.a2hsRes = res;
+    //   }
+    // })
+    if (!this.platform.is('pwa')) {
+          this.common.a2hs$.subscribe((res)=>{
+          console.log("a2hs in home page",res);
+          this.a2hsRes = res;
+          if(res){
+            this.showBtn = res.showButton;
+            this.pmt = res.promt;
+            this.a2hsRes = res;
+          }
+       })
+    }
+  } 
 
 
   // a2hs
