@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
   wait:any;
   showBtn:boolean = false;
   pmt:any;
-  a2hsRes:A2HS;
+  a2hsRes:A2HS = null;
   constructor(private ngZone:NgZone,private common:CommonService,private platform:Platform) { }
 
   ngOnInit() {

@@ -34,6 +34,7 @@ export class AppComponent implements OnInit,OnDestroy{
      this.showButton = true;
      let a2hs:A2HS = {promt:this.deferredPrompt,showButton:this.showButton};
      this.commonService.a2hs.next(a2hs);
+     this.commonService.a2hs$.subscribe(res=>{console.log(res)});
   } 
 
 
