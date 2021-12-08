@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
   wait:any;
   showBtn:boolean = false;
   pmt:any;
-  a2hsRes:A2HS;
+  a2hsRes:any;
 
   constructor(private ngZone:NgZone,private common:CommonService,private platform:Platform) { }
 
@@ -34,7 +34,7 @@ export class HomePage implements OnInit {
       this.common.addToHomeScreen(this.a2hsRes);
     }
     this.common.a2hs$.subscribe((res)=>{
-      console.log("a2hs",res);
+      console.log("a2hs in home page",res);
       if(res){
         this.showBtn = res.showButton;
         this.pmt = res.promt;
