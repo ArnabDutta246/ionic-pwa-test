@@ -35,11 +35,12 @@ export class HomePage implements OnInit {
     }
     this.common.a2hs$.subscribe((res)=>{
       console.log("a2hs in home page",res);
-      if(res){
-        this.showBtn = res.showButton;
-        this.pmt = res.promt;
-        this.a2hsRes = res;
-      }
+      this.a2hsRes = res;
+      // if(res){
+      //   this.showBtn = res.showButton;
+      //   this.pmt = res.promt;
+      //   this.a2hsRes = res;
+      // }
     })
   }
 

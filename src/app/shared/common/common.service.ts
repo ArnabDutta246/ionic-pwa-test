@@ -54,7 +54,8 @@ export class CommonService {
 
     //============== [ A2HS ] ======================
     // pwa re-register
-    addToHomeScreen(a2sh:A2HS) {
+    addToHomeScreen(a2sh) {
+      console.log("in add to home screen",a2sh);
       // hide our user interface that shows our A2HS button
       a2sh.showButton = false;
       // Show the prompt
