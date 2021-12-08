@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 export enum AlertMsgIcon {
   SuccessIcon = 'checkmark-circle',
   ErrorIcon = 'close-circle',
   WarningIcon = 'information-circle',
 }
+export interface A2HS{
+ promt:any;
+ showButton:boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-
+  // add to home screen
+  a2hs = new BehaviorSubject<A2HS|null>(null);
+  a2hs$ = this.a2hs.asObservable();
   constructor( public toastController: ToastController,) { }
 
     /**================  [ Toaster controller]  ======================**/
@@ -31,4 +39,26 @@ export class CommonService {
       });
       toast.present();
     }
+
+
+    //============== [ A2HS ] ======================
+        // pwa re-register
+        addToHomeScreen(a2sh:A2HS) {
+          // hide our user interface that shows our A2HS button
+          a2sh.showButton = false;
+          // Show the prompt
+          a2sh.promt.prompt();
+          // Wait for the user to respond to the prompt
+          a2sh.promt.userChoice
+            .then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the A2HS prompt');
+              } else {
+                console.log('User dismissed the A2HS prompt');
+              }
+              a2sh.promt = null;
+
+              this.a2hs.next(a2sh);
+            });
+        }
 }

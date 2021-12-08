@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>all-posts</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+  <ion-list-header>All posts</ion-list-header>
+  <ion-item *ngFor="let post of posts" class="ion-margin">
+    <ion-label class="ion-text-wrap">
+      <h2>{{post.id}}</h2>
+      <h2>{{post.title}}</h2>
+      <p>{{post.body}}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+</ion-content>

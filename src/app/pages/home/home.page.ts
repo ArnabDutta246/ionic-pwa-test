@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
+import { A2HS, CommonService } from 'src/app/shared/common/common.service';
 export interface GeoL{
   altitude?: null;
   altitudeAccuracy?: null;
@@ -18,10 +19,28 @@ export class HomePage implements OnInit {
   currentLoc:GeoL = null;
   currLocHis:GeoL[] = [];
   wait:any;
-  constructor(private ngZone:NgZone) { }
+  showBtn:boolean = false;
+  pmt:any;
+  a2hsRes:A2HS;
+  constructor(private ngZone:NgZone,private common:CommonService) { }
 
   ngOnInit() {
     this.getCurrentLocation();
+  }
+  ionViewWillEnter(){
+    this.common.a2hs$.subscribe((res:A2HS)=>{
+      console.log("a2hs",res);
+      if(res){
+        this.showBtn = res.showButton;
+        this.pmt = res.promt;
+        this.a2hsRes = res;
+      }
+    })
+  }
+
+  // a2hs
+  addToHome(){
+    this.common.addToHomeScreen(this.a2hsRes);
   }
 
   // get the current location

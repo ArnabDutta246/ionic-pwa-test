@@ -5,6 +5,12 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
+  <ion-toolbar color="warning" *ngIf="showBtn">
+    <ion-title>Install this application</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="dark" fill="solid">Add Now</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">

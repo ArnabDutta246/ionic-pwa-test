@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { PluginListenerHandle } from '@capacitor/core';
 import { Network } from '@capacitor/network';
 import { CommonService } from './shared/common/common.service';
@@ -7,11 +7,11 @@ import { CommonService } from './shared/common/common.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit,OnDestroy{
+export class AppComponent implements OnInit,OnDestroy{         
   public appPages = [
    // { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
     { title: 'Home', url: '/home', icon: 'paper-plan' },
-    // { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
+    { title: 'Posts', url: '/posts', icon: 'archive' },
     // { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
     // { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
     // { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
@@ -22,7 +22,21 @@ export class AppComponent implements OnInit,OnDestroy{
   netErrorHandler:boolean = false;
   netErrorMsg:string = null;
   networkStatus:any;
-  
+  // host listener for add to home screen
+  deferredPrompt: any;
+  showButton = false;
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onbeforeinstallprompt(e) {
+    console.log("add to home screen listener",e);
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    this.deferredPrompt = e;
+    this.showButton = true;
+    this.commonService.a2hs.next({promt:this.deferredPrompt,showButton:true});
+  } 
+
+
   constructor(
     private commonService:CommonService
   ) {}
