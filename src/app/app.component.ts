@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { PluginListenerHandle } from '@capacitor/core';
 import { Network } from '@capacitor/network';
-import { CommonService } from './shared/common/common.service';
+import { A2HS, CommonService } from './shared/common/common.service';
 import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-root',
@@ -32,7 +32,8 @@ export class AppComponent implements OnInit,OnDestroy{
      e.preventDefault();
      this.deferredPrompt = e;
      this.showButton = true;
-     this.commonService.a2hs.next({promt:this.deferredPrompt,showButton:true});
+     let a2hs:A2HS = {promt:this.deferredPrompt,showButton:this.showButton};
+     this.commonService.a2hs.next(a2hs);
   } 
 
 
