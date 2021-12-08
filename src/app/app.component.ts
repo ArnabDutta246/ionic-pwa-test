@@ -28,13 +28,11 @@ export class AppComponent implements OnInit,OnDestroy{
   showButton = false;
   @HostListener('window:beforeinstallprompt', ['$event'])
   onbeforeinstallprompt(e) {
-    // console.log("add to home screen listener",e);
-    // // Prevent Chrome 67 and earlier from automatically showing the prompt
-    // e.preventDefault();
-    // // Stash the event so it can be triggered later.
-    // this.deferredPrompt = e;
-    // this.showButton = true;
-    // this.commonService.a2hs.next({promt:this.deferredPrompt,showButton:true});
+     console.log("add to home screen listener",e);
+     e.preventDefault();
+     this.deferredPrompt = e;
+     this.showButton = true;
+     this.commonService.a2hs.next({promt:this.deferredPrompt,showButton:true});
   } 
 
 
@@ -42,20 +40,11 @@ export class AppComponent implements OnInit,OnDestroy{
     private commonService:CommonService,
     private platform:Platform
   ) {
-    self.addEventListener('beforeinstallprompt', (e) => {
-      console.log('beforeinstallprompt Event fired');
-      // Prevent Chrome 67 and earlier from automatically showing the prompt
-      e.preventDefault();
-      // Stash the event so it can be triggered later.
-      this.deferredPrompt = e;
-    });
   }
   ionViewWillEnter() {
 
   }
   ngOnInit(){
-    //if ((!this.platform.is('pwa') && this.platform.is('mobile'))) {...}
-
     console.log("is pwa",this.platform.is('pwa'))
     this.networkListener = Network.addListener('networkStatusChange', (status) => {
       this.networkStatus = status;

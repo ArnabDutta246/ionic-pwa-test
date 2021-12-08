@@ -29,7 +29,7 @@ export class AllPostsPage implements OnInit,OnDestroy {
       },
       (err)=>{throw err}
     )
-  }     c   
+  }       
   
 }
 // in position grab the breakdown        

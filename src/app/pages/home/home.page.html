@@ -5,10 +5,10 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar color="warning" *ngIf="showBtn">
-    <ion-title>Install this application</ion-title>
+  <ion-toolbar color="success" *ngIf="showBtn">
+    <ion-title>Install App</ion-title>
     <ion-buttons slot="end">
-      <ion-button color="dark" fill="solid">Add Now</ion-button>
+      <ion-button color="dark" fill="solid" (click)="addToHome()">Add Now</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
